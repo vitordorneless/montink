@@ -99,13 +99,13 @@ class CI_URI {
 	 */
 	public function __construct()
 	{
-		$this->config =& load_class('Config', 'core');
+		$config = load_class('Config', 'core');
 
 		// If query strings are enabled, we don't need to parse any segments.
 		// However, they don't make sense under CLI.
-		if (is_cli() OR $this->config->item('enable_query_strings') !== TRUE)
+		if (is_cli() OR $config->item('enable_query_strings') !== TRUE)
 		{
-			$this->_permitted_uri_chars = $this->config->item('permitted_uri_chars');
+			$this->_permitted_uri_chars = $config->item('permitted_uri_chars');
 
 			// If it's a CLI request, ignore the configuration
 			if (is_cli())
@@ -114,7 +114,7 @@ class CI_URI {
 			}
 			else
 			{
-				$protocol = $this->config->item('uri_protocol');
+				$protocol = $config->item('uri_protocol');
 				empty($protocol) && $protocol = 'REQUEST_URI';
 
 				switch ($protocol)
